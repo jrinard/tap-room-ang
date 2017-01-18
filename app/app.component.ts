@@ -7,7 +7,13 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-root', // defines the specific tag to render within.
   template: `
   <div class="container">
-    <h1>My First Angular 2 App</h1>
+    <h1>Tap Room</h1>
+    <ul>
+      <li *ngFor="let currentKeg of kegs">
+      {{currentKeg.brewery}} {{currentKeg.name}}, {{currentKeg.abv}}%,  \${{currentKeg.pintPrice}}
+      </li>
+    </ul>
+
   </div>
   `
 })
@@ -16,9 +22,9 @@ import { FormsModule } from '@angular/forms';
 export class AppComponent {
 
 kegs: Keg[] = [
-  new Keg('Breakside IPA', 'Breakside', 7, 6.3),
-  new Keg('Heater Allen Pilsner', 'Heater Allen', 5, 4.9),
-  new Keg('Sunrise Oatmeal Pale Ale', 'Fort George Brewing', 5, 5.5),
+  new Keg('Breakside', 'IPA', 7, 6.3),
+  new Keg('Heater Allen', 'Pilsner', 5, 4.9),
+  new Keg('Fort George', 'Sunrise Oatmeal Pale Ale', 5, 5.5),
 ];
 }
 
@@ -26,5 +32,5 @@ kegs: Keg[] = [
 
 export class Keg {
   public pintsRemaining: number = 124;
-  constructor(public name: string, public brewery: string, public pintPrice: number, public abv: number) {}
+  constructor(public brewery: string, public name: string,  public pintPrice: number, public abv: number) {}
 }
