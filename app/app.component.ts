@@ -12,20 +12,49 @@ import { FormGroup, FormControl } from '@angular/forms';
     <h1>Tap Room</h1>
     <ul>
       <li *ngFor="let currentKeg of kegs">
-      {{currentKeg.brewery}} {{currentKeg.name}}, {{currentKeg.abv}}%,  \${{currentKeg.pintPrice}}
+      {{currentKeg.brewery}} {{currentKeg.name}}, {{currentKeg.abv}}%,  \${{currentKeg.price}}
+      <button class="btn btn-xs" (click)="editKeg(currentKeg)">Edit</button>
+      <span [class]="reorderColor(currentKeg.pintsRemaining)">{{currentKeg.pintsRemaining}}</span> remaining
+      <button class="btn btn-xs" (click)="sellPint(currentKeg)">Sell Pint</button>
       </li>
     </ul>
-    <button (click)="showKegForm()">Add Keg</button>
+    <button class="btn" (click)="showKegForm()">Add Keg</button>
     <div *ngIf="addNewKeg">
+      <h3>New Keg</h3>
       <form [formGroup]="newKegForm" (ngSubmit)="addKeg()">
-        <input formControlName="brewery" placeholder="Brewery">
-        <input formControlName="name" placeholder="Beer Name">
-        <input formControlName="price" placeholder="Price Per Pint">
-        <input formControlName="abv" placeholder="Alcohol %">
-        <button type="submit">Save</button>
-        <button (click)="hideKegForm()">Cancel</button>
+        <div class="form-group">
+          <input class="form-control" formControlName="brewery" placeholder="Brewery">
+        </div>
+        <div class="form-group">
+          <input class="form-control"formControlName="name" placeholder="Beer Name">
+        </div>
+        <div class="form-group">
+          <input class="form-control"formControlName="price" placeholder="Price Per Pint">
+        </div>
+        <div class="form-group">
+          <input class="form-control"formControlName="abv" placeholder="Alcohol %">
+        </div>
+        <button class="btn btn-xs"type="submit">Save</button>
+        <button class="btn btn-xs"(click)="hideKegForm()">Cancel</button>
       </form>
     </div><!--newKeg-->
+    <div *ngIf="selectedKeg">
+    <h3>Edit Keg</h3>
+    <div class="form-group">
+      <input class="form-control" [(ngModel)]="selectedKeg.brewery">
+    </div>
+    <div class="form-group">
+      <input class="form-control" [(ngModel)]="selectedKeg.name">
+    </div>
+    <div class="form-group">
+      <input class="form-control" [(ngModel)]="selectedKeg.price">
+    </div>
+    <div class="form-group">
+      <input class="form-control" [(ngModel)]="selectedKeg.abv">
+    </div>
+    <button class="btn btn-xs" (click)="finishedEditing()">Done</button>
+
+    </div><!--selectedKeg-->
   </div>
   `
 })
@@ -48,6 +77,16 @@ newKegForm = new FormGroup({
   abv: new FormControl()
 });
 
+selectedKeg: Keg = null;
+
+editKeg(clickedKeg: Keg): void {
+  this.selectedKeg = clickedKeg;
+}
+
+finishedEditing(): void {
+  this.selectedKeg = null;
+}
+
 addKeg(): void {
   let brewery = this.newKegForm.value.brewery;
   let name = this.newKegForm.value.name;
@@ -55,7 +94,6 @@ addKeg(): void {
   let abv = this.newKegForm.value.abv;
   let newKeg: Keg = new Keg(brewery, name, price, abv);
   this.kegs.push(newKeg);
-  console.log(this.kegs);
 }
 
 showKegForm(): void {
@@ -65,17 +103,24 @@ showKegForm(): void {
 hideKegForm(): void {
   this.addNewKeg = false;
 }
-// addKeg() {
-//   price: number = this.kegForm.controls.price.value;
-//
-//   newKeg: Keg = new Keg(price etc)
-//   kegs.push(newKeg)
-// }
+
+sellPint(clickedKeg: Keg): void {
+  clickedKeg.pintsRemaining -= 1;
+}
+
+reorderColor(pintsRemaining: number): string {
+  if(pintsRemaining <= 10){
+    return "text-danger";
+  } else {
+    return "text-primary";
+  }
+}
+
 }
 
 
 
 export class Keg {
   public pintsRemaining: number = 124;
-  constructor(public brewery: string, public name: string,  public pintPrice: number, public abv: number) {}
+  constructor(public brewery: string, public name: string,  public price: number, public abv: number) {}
 }
