@@ -17,11 +17,11 @@ import { FormGroup, FormControl } from '@angular/forms';
     </ul>
     <button (click)="showKegForm()">Add Keg</button>
     <div *ngIf="addNewKeg">
-      <form [formGroup]="newKegForm" (ngSubmit)="addKeg($event)">
-        <input formControlName="brewery" type="brewery" placeholder="Brewery">
-        <input formControlName="name" type="name" placeholder="Beer Name">
-        <input formControlName="price" type="price" placeholder="Price Per Pint">
-        <input formControlName="abv" type="abv" placeholder="Alcohol %">
+      <form [formGroup]="newKegForm" (ngSubmit)="addKeg()">
+        <input formControlName="brewery" placeholder="Brewery">
+        <input formControlName="name" placeholder="Beer Name">
+        <input formControlName="price" placeholder="Price Per Pint">
+        <input formControlName="abv" placeholder="Alcohol %">
         <button type="submit">Save</button>
         <button (click)="hideKegForm()">Cancel</button>
       </form>
@@ -42,18 +42,19 @@ kegs: Keg[] = [
 addNewKeg: boolean = false;
 
 newKegForm = new FormGroup({
-  brewery: new FormControl("brewery"),
-  name: new FormControl("name"),
-  price: new FormControl("price"),
-  abv: new FormControl("abv")
+  brewery: new FormControl(),
+  name: new FormControl(),
+  price: new FormControl(),
+  abv: new FormControl()
 });
 
-addKeg(event): void {
+addKeg(): void {
   let brewery = this.newKegForm.value.brewery;
   let name = this.newKegForm.value.name;
   let price = this.newKegForm.value.price;
   let abv = this.newKegForm.value.abv;
   let newKeg: Keg = new Keg(brewery, name, price, abv);
+  this.kegs.push(newKeg);
   console.log(this.kegs);
 }
 
