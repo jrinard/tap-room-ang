@@ -12,7 +12,7 @@ import { FormGroup, FormControl } from '@angular/forms';
     <h1>Tap Room</h1>
     <ul>
       <li *ngFor="let currentKeg of kegs">
-      {{currentKeg.brewery}} {{currentKeg.name}}, {{currentKeg.abv}}%,  \${{currentKeg.price}}
+      {{currentKeg.brewery}} {{currentKeg.name}}, {{currentKeg.abv}}%,  <span [class]="priceColor(currentKeg.price)">\${{currentKeg.price}}</span>
       <button class="btn btn-xs" (click)="editKeg(currentKeg)">Edit</button>
       <span [class]="reorderColor(currentKeg.pintsRemaining)">{{currentKeg.pintsRemaining}}</span> remaining
       <button class="btn btn-xs" (click)="sellPint(currentKeg)">Sell Pint</button>
@@ -113,6 +113,17 @@ reorderColor(pintsRemaining: number): string {
     return "text-danger";
   } else {
     return "text-primary";
+  }
+}
+
+priceColor(price: number): string {
+  console.log(price);
+  if(price === 5){
+    return "text-primary";
+  }else if (price > 5){
+    return "text-warning";
+  } else {
+    return "text-success";
   }
 }
 
