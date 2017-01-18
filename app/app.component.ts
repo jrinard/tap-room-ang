@@ -9,15 +9,19 @@ import { FormGroup, FormControl } from '@angular/forms';
   selector: 'app-root', // defines the specific tag to render within.
   template: `
   <div class="container">
+  <div class="page-header">
     <h1>Tap Room</h1>
-    <ul>
+    </div>
+    
+    <button class="btn btn-xs" (click)="sortByAbv()">Sort by ABV</button>
       <li *ngFor="let currentKeg of kegs">
       {{currentKeg.brewery}} {{currentKeg.name}}, {{currentKeg.abv}}%,  <span [class]="priceColor(currentKeg.price)">\${{currentKeg.price}}</span>
       <button class="btn btn-xs" (click)="editKeg(currentKeg)">Edit</button>
       <span [class]="reorderColor(currentKeg.pintsRemaining)">{{currentKeg.pintsRemaining}}</span> remaining
       <button class="btn btn-xs" (click)="sellPint(currentKeg)">Sell Pint</button>
       </li>
-    </ul>
+
+
     <button class="btn" (click)="showKegForm()">Add Keg</button>
     <div *ngIf="addNewKeg">
       <h3>New Keg</h3>
@@ -127,6 +131,11 @@ priceColor(price: number): string {
   }
 }
 
+sortByAbv(): void {
+  this.kegs.sort(function (kegA: Keg, kegB: Keg) {
+    return kegA.abv - kegB.abv;
+  });
+}
 }
 
 
