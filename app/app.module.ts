@@ -3,13 +3,15 @@ import { NgModule }      from '@angular/core'; //general Module code from the An
 import { BrowserModule } from '@angular/platform-browser'; // imports code necessary to run our app in the browser
 import { AppComponent }   from './app.component';//actually refers to the root component we created
 import { FormsModule } from '@angular/forms';
+import { KegListComponent } from './keg-list.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
 //Module Decorator
 @NgModule({
   imports: [ BrowserModule, FormsModule, ReactiveFormsModule ], //imports array under the decorator imports other pieces of our application we want included in this module.
-  declarations: [ AppComponent ], //array of all components that will reside in this module
+  declarations: [ AppComponent,
+                  KegListComponent ], //array of all components that will reside in this module
   bootstrap:    [ AppComponent ] // array of components required immediately upon launching the application
 })
 

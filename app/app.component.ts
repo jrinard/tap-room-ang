@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Keg } from './keg.model';
 
 //Part 1 COMPONENT ANNOTATION - determines how it APPEARS
 @Component({ // defines new component should have functionalities outlines in the above imported component
@@ -12,14 +13,9 @@ import { FormGroup, FormControl } from '@angular/forms';
   <div class="page-header">
     <h1>Tap Room</h1>
     </div>
-    
+
     <button class="btn btn-xs" (click)="sortByAbv()">Sort by ABV</button>
-      <li *ngFor="let currentKeg of kegs">
-      {{currentKeg.brewery}} {{currentKeg.name}}, {{currentKeg.abv}}%,  <span [class]="priceColor(currentKeg.price)">\${{currentKeg.price}}</span>
-      <button class="btn btn-xs" (click)="editKeg(currentKeg)">Edit</button>
-      <span [class]="reorderColor(currentKeg.pintsRemaining)">{{currentKeg.pintsRemaining}}</span> remaining
-      <button class="btn btn-xs" (click)="sellPint(currentKeg)">Sell Pint</button>
-      </li>
+    <keg-list [childKegList]="masterKegList" (editButtonSender)="editKeg($event)"></keg-list>
 
 
     <button class="btn" (click)="showKegForm()">Add Keg</button>
@@ -66,7 +62,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 //Part 2 CLASS DEFINITION -- determines how it BEHAVES
 export class AppComponent {
 
-kegs: Keg[] = [
+masterKegList: Keg[] = [
   new Keg('Breakside', 'IPA', 7, 6.3),
   new Keg('Heater Allen', 'Pilsner', 5, 4.9),
   new Keg('Fort George', 'Sunrise Oatmeal Pale Ale', 5, 5.5),
@@ -97,7 +93,7 @@ addKeg(): void {
   let price = this.newKegForm.value.price;
   let abv = this.newKegForm.value.abv;
   let newKeg: Keg = new Keg(brewery, name, price, abv);
-  this.kegs.push(newKeg);
+  this.masterKegList.push(newKeg);
 }
 
 showKegForm(): void {
@@ -108,39 +104,11 @@ hideKegForm(): void {
   this.addNewKeg = false;
 }
 
-sellPint(clickedKeg: Keg): void {
-  clickedKeg.pintsRemaining -= 1;
-}
 
-reorderColor(pintsRemaining: number): string {
-  if(pintsRemaining <= 10){
-    return "text-danger";
-  } else {
-    return "text-primary";
-  }
-}
-
-priceColor(price: number): string {
-  console.log(price);
-  if(price === 5){
-    return "text-primary";
-  }else if (price > 5){
-    return "text-warning";
-  } else {
-    return "text-success";
-  }
-}
 
 sortByAbv(): void {
-  this.kegs.sort(function (kegA: Keg, kegB: Keg) {
+  this.masterKegList.sort(function (kegA: Keg, kegB: Keg) {
     return kegA.abv - kegB.abv;
   });
 }
-}
-
-
-
-export class Keg {
-  public pintsRemaining: number = 124;
-  constructor(public brewery: string, public name: string,  public price: number, public abv: number) {}
 }
