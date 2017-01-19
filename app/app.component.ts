@@ -16,30 +16,8 @@ import { Keg } from './keg.model';
 
     <button class="btn btn-xs" (click)="sortByAbv()">Sort by ABV</button>
     <keg-list [childKegList]="masterKegList" (editButtonSender)="editKeg($event)"></keg-list>
-
-
-    <button class="btn" (click)="showKegForm()">Add Keg</button>
-    <div *ngIf="addNewKeg">
-      <h3>New Keg</h3>
-      <form [formGroup]="newKegForm" (ngSubmit)="addKeg()">
-        <div class="form-group">
-          <input class="form-control" formControlName="brewery" placeholder="Brewery">
-        </div>
-        <div class="form-group">
-          <input class="form-control"formControlName="name" placeholder="Beer Name">
-        </div>
-        <div class="form-group">
-          <input class="form-control"formControlName="price" placeholder="Price Per Pint">
-        </div>
-        <div class="form-group">
-          <input class="form-control"formControlName="abv" placeholder="Alcohol %">
-        </div>
-        <button class="btn btn-xs"type="submit">Save</button>
-        <button class="btn btn-xs"(click)="hideKegForm()">Cancel</button>
-      </form>
-    </div><!--newKeg-->
-
-      <edit-keg [childSelectedKeg]="selectedKeg" (doneButtonClickedSender)="finishedEditing()"></edit-keg>
+    <edit-keg [childSelectedKeg]="selectedKeg" (doneButtonClickedSender)="finishedEditing()"></edit-keg>
+    <new-keg (newKegSender)="addKeg($event)"></new-keg>
   </div>
   `
 })
@@ -53,14 +31,6 @@ masterKegList: Keg[] = [
   new Keg('Fort George', 'Sunrise Oatmeal Pale Ale', 5, 5.5),
 ];
 
-addNewKeg: boolean = false;
-
-newKegForm = new FormGroup({
-  brewery: new FormControl(),
-  name: new FormControl(),
-  price: new FormControl(),
-  abv: new FormControl()
-});
 
 selectedKeg: Keg = null;
 
@@ -72,22 +42,10 @@ finishedEditing(): void {
   this.selectedKeg = null;
 }
 
-addKeg(): void {
-  let brewery = this.newKegForm.value.brewery;
-  let name = this.newKegForm.value.name;
-  let price = this.newKegForm.value.price;
-  let abv = this.newKegForm.value.abv;
-  let newKeg: Keg = new Keg(brewery, name, price, abv);
-  this.masterKegList.push(newKeg);
+addKeg(kegFromChildForm: Keg): void {
+  this.masterKegList.push(kegFromChildForm);
 }
 
-showKegForm(): void {
-  this.addNewKeg = true;
-}
-
-hideKegForm(): void {
-  this.addNewKeg = false;
-}
 
 
 

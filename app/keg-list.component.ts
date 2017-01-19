@@ -23,7 +23,6 @@ export class KegListComponent {
   }
 
   priceColor(price: number): string {
-    console.log(price);
     if(price === 5){
       return "text-primary";
     }else if (price > 5){

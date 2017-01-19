@@ -5,6 +5,7 @@ import { AppComponent }   from './app.component';//actually refers to the root c
 import { FormsModule } from '@angular/forms';
 import { KegListComponent } from './keg-list.component';
 import { EditKegComponent } from './edit-keg.component';
+import { NewKegComponent } from './new-keg.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -13,7 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [ BrowserModule, FormsModule, ReactiveFormsModule ], //imports array under the decorator imports other pieces of our application we want included in this module.
   declarations: [ AppComponent,
                   KegListComponent,
-                  EditKegComponent ], //array of all components that will reside in this module
+                  EditKegComponent,
+                  NewKegComponent ], //array of all components that will reside in this module
   bootstrap:    [ AppComponent ] // array of components required immediately upon launching the application
 })
 
