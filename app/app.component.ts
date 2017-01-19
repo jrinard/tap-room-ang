@@ -13,8 +13,7 @@ import { Keg } from './keg.model';
   <div class="page-header">
     <h1>Tap Room</h1>
     </div>
-
-    <button class="btn btn-xs" (click)="sortByAbv()">Sort by ABV</button>
+    <!-- <button class="btn btn-xs" (click)="sortByAbv()">Sort by ABV</button> -->
     <keg-list [childKegList]="masterKegList" (editButtonSender)="editKeg($event)"></keg-list>
     <edit-keg [childSelectedKeg]="selectedKeg" (doneButtonClickedSender)="finishedEditing()"></edit-keg>
     <new-keg (newKegSender)="addKeg($event)"></new-keg>
@@ -31,7 +30,6 @@ masterKegList: Keg[] = [
   new Keg('Fort George', 'Sunrise Oatmeal Pale Ale', 5, 5.5),
 ];
 
-
 selectedKeg: Keg = null;
 
 editKeg(clickedKeg: Keg): void {
@@ -46,12 +44,4 @@ addKeg(kegFromChildForm: Keg): void {
   this.masterKegList.push(kegFromChildForm);
 }
 
-
-
-
-sortByAbv(): void {
-  this.masterKegList.sort(function (kegA: Keg, kegB: Keg) {
-    return kegA.abv - kegB.abv;
-  });
-}
 }

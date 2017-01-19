@@ -5,11 +5,16 @@ import { Keg } from './keg.model';
 @Component({
   selector: 'keg-list',
   template: `
-  <li *ngFor="let currentKeg of childKegList">
+  <select (change)="changeAbvFilter($event.target.value)">
+    <option value="highToLow">High to Low</option>
+    <option value="lowToHigh" selected>Low to High</option>
+  </select>
+
+  <li *ngFor="let currentKeg of childKegList | abvFilter:filterType">
   {{currentKeg.brewery}} {{currentKeg.name}}, {{currentKeg.abv}}%,  <span [class]="priceColor(currentKeg.price)">\${{currentKeg.price}}</span>
-  <button class="btn btn-xs" (click)="editButtonHasBeenClicked(currentKeg)">Edit</button>
-  <span [class]="reorderColor(currentKeg.pintsRemaining)">{{currentKeg.pintsRemaining}}</span> remaining
-  <button class="btn btn-xs" (click)="sellPint(currentKeg)">Sell Pint</button>
+    <button class="btn btn-xs" (click)="editButtonHasBeenClicked(currentKeg)">Edit</button>
+    <span [class]="reorderColor(currentKeg.pintsRemaining)">{{currentKeg.pintsRemaining}}</span> remaining
+    <button class="btn btn-xs" (click)="sellPint(currentKeg)">Sell Pint</button>
   </li>
   `
 })
@@ -17,6 +22,12 @@ import { Keg } from './keg.model';
 export class KegListComponent {
   @Input() childKegList: Keg[];
   @Output() editButtonSender = new EventEmitter();
+
+  filterType: string = "lowToHigh";
+
+  changeAbvFilter(optionFromSelect: string): void {
+    this.filterType = optionFromSelect;
+  }
 
   editButtonHasBeenClicked(kegToEdit: Keg): void {
     this.editButtonSender.emit(kegToEdit);

@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { KegListComponent } from './keg-list.component';
 import { EditKegComponent } from './edit-keg.component';
 import { NewKegComponent } from './new-keg.component';
+import { AbvFilterPipe } from './abv-filter.pipe'
 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -15,7 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [ AppComponent,
                   KegListComponent,
                   EditKegComponent,
-                  NewKegComponent ], //array of all components that will reside in this module
+                  NewKegComponent,
+                  AbvFilterPipe ], //array of all components that will reside in this module
   bootstrap:    [ AppComponent ] // array of components required immediately upon launching the application
 })
 
