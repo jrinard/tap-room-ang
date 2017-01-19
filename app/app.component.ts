@@ -38,23 +38,8 @@ import { Keg } from './keg.model';
         <button class="btn btn-xs"(click)="hideKegForm()">Cancel</button>
       </form>
     </div><!--newKeg-->
-    <div *ngIf="selectedKeg">
-    <h3>Edit Keg</h3>
-    <div class="form-group">
-      <input class="form-control" [(ngModel)]="selectedKeg.brewery">
-    </div>
-    <div class="form-group">
-      <input class="form-control" [(ngModel)]="selectedKeg.name">
-    </div>
-    <div class="form-group">
-      <input class="form-control" [(ngModel)]="selectedKeg.price">
-    </div>
-    <div class="form-group">
-      <input class="form-control" [(ngModel)]="selectedKeg.abv">
-    </div>
-    <button class="btn btn-xs" (click)="finishedEditing()">Done</button>
 
-    </div><!--selectedKeg-->
+      <edit-keg [childSelectedKeg]="selectedKeg" (doneButtonClickedSender)="finishedEditing()"></edit-keg>
   </div>
   `
 })
