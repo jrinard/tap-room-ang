@@ -1,7 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Keg } from './keg.model';
 
-@Pipe({name: 'abvFilter'})
+@Pipe({
+  name: 'abvFilter',
+  pure: false
+})
 
 export class AbvFilterPipe implements PipeTransform {
   transform(kegList: Keg[], direction: string): Keg[] {
