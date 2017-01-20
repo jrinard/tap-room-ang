@@ -11,10 +11,12 @@ import { Keg } from './keg.model';
   </select>
 
   <li *ngFor="let currentKeg of childKegList | abvFilter:filterType">
-  {{currentKeg.brewery}} {{currentKeg.name}}, {{currentKeg.abv}}%,  <span [class]="priceColor(currentKeg.price)">\${{currentKeg.price}}</span>
-    <button class="btn btn-xs" (click)="editButtonHasBeenClicked(currentKeg)">Edit</button>
-    <span [class]="reorderColor(currentKeg.pintsRemaining)">{{currentKeg.pintsRemaining}}</span> remaining
-    <button class="btn btn-xs" (click)="sellPint(currentKeg)">Sell Pint</button>
+  <p>{{currentKeg.brewery}} {{currentKeg.name}}</p>
+  <p>{{currentKeg.abv}}% <span [class]="priceColor(currentKeg.price)">\${{currentKeg.price}}</span>,
+    </p> <span [class]="reorderColor(currentKeg.pintsRemaining)">{{currentKeg.pintsRemaining}}</span> remaining
+    <p><button class="light-blue darken-2 btn waves-effect waves-light btn-small" (click)="editButtonHasBeenClicked(currentKeg)">Edit</button>
+    <button class="light-blue darken-2 btn waves-effect waves-light btn-small" (click)="sellPint(currentKeg)">Sell Pint</button></p>
+    <hr>
   </li>
   `
 })

@@ -18,7 +18,7 @@ import { Keg } from './keg.model';
   <div class="form-group">
     <input class="form-control" [(ngModel)]="childSelectedKeg.abv">
   </div>
-  <button class="btn btn-xs" (click)="finishedEditing()">Done</button>
+  <button class="light-blue darken-2 btn btn-xs" (click)="finishedEditing()">Done</button>
   </div><!--selectedKeg-->
   `
 })

@@ -4,26 +4,26 @@ import { Keg } from './keg.model';
 @Component({
   selector: 'new-keg',
   template: `
-  <button class="btn" (click)="showKegForm()">Add Keg</button>
+  <button class="light-blue darken-2 btn" (click)="showKegForm()">Add Keg</button>
   <div *ngIf="addNewKeg">
     <h3>New Keg</h3>
-      <div class="form-group">
-        <input class="form-control" #newBrewery placeholder="Brewery">
+      <div class="input-field">
+        <input #newBrewery placeholder="Brewery">
       </div>
-      <div class="form-group">
-        <input class="form-control" #newName placeholder="Beer Name">
+      <div class="input-field">
+        <input #newName placeholder="Beer Name">
       </div>
-      <div class="form-group">
-        <input class="form-control" #newPrice placeholder="Price Per Pint">
+      <div class="input-field">
+        <input #newPrice placeholder="Price Per Pint">
       </div>
-      <div class="form-group">
-        <input class="form-control" #newAbv placeholder="Alcohol %">
+      <div class="input-field">
+        <input #newAbv placeholder="Alcohol %">
       </div>
-      <button class="btn btn-xs" (click)="submitForm(newBrewery.value, newName.value, newPrice.value, newAbv.value); newBrewery.value = '';
+      <button class=" light-blue darken-2 btn" (click)="submitForm(newBrewery.value, newName.value, newPrice.value, newAbv.value); newBrewery.value = '';
       newName.value = '';
       newPrice.value = '';
       newAbv.value = '';">Save</button>
-      <button class="btn btn-xs"(click)="hideKegForm()">Cancel</button>
+      <button class="light-blue darken-2 btn"(click)="hideKegForm()">Cancel</button>
   </div><!--newKeg-->
   `
 })

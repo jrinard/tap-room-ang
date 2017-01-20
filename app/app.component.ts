@@ -9,15 +9,21 @@ import { Keg } from './keg.model';
 @Component({ // defines new component should have functionalities outlines in the above imported component
   selector: 'app-root', // defines the specific tag to render within.
   template: `
-  <div class="container">
-  <div class="page-header">
-    <h1>Tap Room</h1>
+
+  <nav>
+    <div class="nav-wrapper">
+      <div class="brand-logo center">
+        <h1>Tap Room</h1>
+      </div>
     </div>
+  </nav>
+    <div class="container">
     <!-- <button class="btn btn-xs" (click)="sortByAbv()">Sort by ABV</button> -->
     <keg-list [childKegList]="masterKegList" (editButtonSender)="editKeg($event)"></keg-list>
-    <edit-keg [childSelectedKeg]="selectedKeg" (doneButtonClickedSender)="finishedEditing()"></edit-keg>
+    <edit-keg [childSelectedKeg]="selectedKeg" (doneButtonClickedSender)="finishedEditing()"></edit-keg><br>
     <new-keg (newKegSender)="addKeg($event)"></new-keg>
   </div>
+
   `
 })
 
